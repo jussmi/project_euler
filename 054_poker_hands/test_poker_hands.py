@@ -68,3 +68,36 @@ def test_hand_rank(royal_flush, straight_flush, four_of_a_kind, full_house, stra
     assert two_pair.hand_rank == (3, 12, 10)
     assert one_pair.hand_rank == (2, 10, 12)
     assert junk_hand.hand_rank == (1, 11, 9)
+
+def test_heads_up():
+    #given
+    high_card_jack = ph.PokerHand("JH 9D 5C 3S 7H")
+    high_card_jack_2 = ph.PokerHand("JD TC 8D 6C 3C")    
+    # when
+    result = ph.heads_up(high_card_jack, high_card_jack_2)    
+    # then
+    assert result == 2
+    
+    #given
+    high_card_jack = ph.PokerHand("JH 6D 5C 3S 7H")
+    one_pair = ph.PokerHand("TH TC 7D 6C 3C")
+    # when
+    result = ph.heads_up(one_pair, high_card_jack)    
+    # then
+    assert result == 1
+    
+    #given
+    pair_of_jacks = ph.PokerHand("JH JD 5C 3S 7H")
+    pair_of_jacks_ace_high = ph.PokerHand("JC JS AD 6C 3C")
+    # when
+    result = ph.heads_up(pair_of_jacks, pair_of_jacks_ace_high)    
+    # then
+    assert result == 2
+    
+    # given
+    sixes_over_nines = ph.PokerHand("6H 6C 6D 9H 9S")
+    sevens_over_tens = ph.PokerHand("TH TD 7C 7H 7S")
+    # when
+    result = ph.heads_up(sixes_over_nines, sevens_over_tens)
+    # then
+    assert result == 2
